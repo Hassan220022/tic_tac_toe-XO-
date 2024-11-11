@@ -26,7 +26,7 @@ run: $(NAME)
 	./$(NAME)
 
 git: fclean
-	rm *.csv
+	rm -f *.csv
 	git add .
 	git commit -m "update"
 	git push

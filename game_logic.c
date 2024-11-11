@@ -34,5 +34,3 @@ int check_winner(void)
 		return 0; /* Draw */
 	return -1;	  /* Game continues */
 }
-
-// ...other game logic functions with proper documentation...

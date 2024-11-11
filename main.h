@@ -100,4 +100,7 @@ void load_game_history(struct game_record *records, int *count, const char *file
 void hangman_easy(void);
 void hangman_hard(void);
 
+/* Function prototypes for drawing hangman */
+void draw_hangman(int attempts_left);
+void display_guessed_letters(char guessed_letters[], int count);
 #endif /* MAIN_H */
