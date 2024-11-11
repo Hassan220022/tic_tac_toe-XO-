@@ -96,9 +96,6 @@ int check_winner_board(char board[SIZE]);
 void save_game_history(struct game_record record, const char *filename);
 void load_game_history(struct game_record *records, int *count, const char *filename);
 
-/* New function prototypes for menuscreen and intro */
-void intro(void);
-
 /* Function prototypes for Hangman */
 void hangman_easy(void);
 void hangman_hard(void);

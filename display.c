@@ -78,9 +78,9 @@ void menuscreen(void) // the start menu
 {
 	printf("\n\nEnter the corresponding number to the program you want to run: ");
 	printf("\n\n \n  ------------------------------------\n |");
-	printf(" 1. Single Player (Easy)\t\t      |");
+	printf(" 1. Single Player (Easy)\t      |");
 	printf(" \n |------------------------------------|\n |");
-	printf(" 2. Single Player (Hard)\t\t      |");
+	printf(" 2. Single Player (Hard)\t      |");
 	printf(" \n |------------------------------------|\n |");
 	printf(" 3. Multiplayer\t\t      |");
 	printf(" \n |------------------------------------|\n |");
@@ -92,10 +92,4 @@ void menuscreen(void) // the start menu
 	printf(" \n |------------------------------------|\n |");
 	printf(" 7. Exit\t\t\t      |");
 	printf(" \n  ------------------------------------\n");
-}
-
-void intro(void)
-{
-	printf("MADE BY CEO and cofounder HAASSAN MIKAWI 20104451\n\t\t\t\tMazen Ibrahim Mohamed 20104387\n\n\n");
-	printf("MADE BY CEO and cofounder HAASSAN MIKAWI 20104451\n\t\t\t\tMazen Ibrahim Mohamed 20104387\n\n\n");
 }

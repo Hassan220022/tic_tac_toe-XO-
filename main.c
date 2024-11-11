@@ -13,9 +13,6 @@ char xo[SIZE];
  */
 int main(void)
 {
-	intro();
-	menuscreen();
-
 	int mode = 0;
 	struct single_player sp_stats = {0, 0, 0, 0, ""};
 	struct multiplayer mp_stats = {0, 0, "", ""};
