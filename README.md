@@ -12,6 +12,10 @@
   
 - **Multiplayer Mode**
   - Play against another human player.
+  
+- **Hangman Mode**
+  - **Easy:** Simple words for casual play.
+  - **Hard:** More complex words for a challenging experience.
 
 - **Leaderboard**
   - Tracks and displays statistics for both single-player and multiplayer games.
@@ -109,8 +113,10 @@ Select an option:
 1. Single Player (Easy)
 2. Single Player (Hard)
 3. Multiplayer
-4. View Leaderboard
-5. Exit
+4. Hangman (Easy)
+5. Hangman (Hard)
+6. View Leaderboard
+7. Exit
 
 Enter your choice:
 ```
@@ -129,11 +135,19 @@ Enter your choice:
 
 - Play against another human player.
 
-#### 4. View Leaderboard
+#### 4. Hangman (Easy)
+
+- Play a simple game of Hangman with easy words.
+
+#### 5. Hangman (Hard)
+
+- Play a challenging game of Hangman with complex words.
+
+#### 6. View Leaderboard
 
 - Displays the current leaderboard with player statistics.
 
-#### 5. Exit
+#### 7. Exit
 
 - Saves the current game state and exits the game.
 
