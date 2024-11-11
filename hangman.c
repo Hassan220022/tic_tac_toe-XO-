@@ -74,10 +74,8 @@ void hangman_easy(void)
 			continue;
 		}
 
-		// Convert to lowercase for consistency
 		letter = tolower(letter);
 
-		// Check if letter has already been guessed
 		int already_guessed = 0;
 		for (i = 0; i < guessed_count; i++)
 		{
