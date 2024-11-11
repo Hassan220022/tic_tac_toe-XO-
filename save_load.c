@@ -144,30 +144,44 @@ void load_leaderboard(struct single_player *sp_stats,
  */
 void save_game_history(struct game_record record, const char *filename)
 {
-	FILE *file = fopen(filename, "a"); // Append mode
-	if (file == NULL)
-	{
-		printf("Error saving game history.\n");
-		return;
-	}
+    FILE *file = fopen(filename, "a"); // Append mode
+    if (file == NULL)
+    {
+        printf("Error saving game history.\n");
+        return;
+    }
 
-	if (record.game_type == GAME_TYPE_SINGLE)
-	{
-		// Single Player: Game Type, Player Name, Computer, Result
-		fprintf(file, "Single Player,%s,,%d\n",
-				record.player_name,
-				record.result);
-	}
-	else if (record.game_type == GAME_TYPE_MULTIPLAYER)
-	{
-		// Multiplayer: Game Type, Player 1, Player 2, Result
-		fprintf(file, "Multiplayer,%s,%s,%d\n",
-				record.player_name,
-				record.player2_name,
-				record.result);
-	}
+    if (record.game_type == GAME_TYPE_SINGLE)
+    {
+        // Single Player: Game Type, Player Name, Computer, Result
+        fprintf(file, "Single Player,%s,,%d\n",
+                record.player_name,
+                record.result);
+    }
+    else if (record.game_type == GAME_TYPE_MULTIPLAYER)
+    {
+        // Multiplayer: Game Type, Player 1, Player 2, Result
+        fprintf(file, "Multiplayer,%s,%s,%d\n",
+                record.player_name,
+                record.player2_name,
+                record.result);
+    }
+    else if (record.game_type == 3) // Hangman Easy
+    {
+        // Hangman Easy: Game Type, Player Name, Difficulty, Result
+        fprintf(file, "Hangman,Easy,%s,%d\n",
+                record.player_name,
+                record.result);
+    }
+    else if (record.game_type == 4) // Hangman Hard
+    {
+        // Hangman Hard: Game Type, Player Name, Difficulty, Result
+        fprintf(file, "Hangman,Hard,%s,%d\n",
+                record.player_name,
+                record.result);
+    }
 
-	fclose(file);
+    fclose(file);
 }
 
 /**
@@ -178,41 +192,52 @@ void save_game_history(struct game_record record, const char *filename)
  */
 void load_game_history(struct game_record *records, int *count, const char *filename)
 {
-	FILE *file = fopen(filename, "r");
-	if (file == NULL)
-	{
-		// No game history exists
-		*count = 0;
-		return;
-	}
+    FILE *file = fopen(filename, "r");
+    if (file == NULL)
+    {
+        // No game history exists
+        *count = 0;
+        return;
+    }
 
-	*count = 0;
-	while (*count < MAX_GAMES && !feof(file))
-	{
-		char game_type_str[20];
-		char player1[50];
-		char player2[50];
-		int result;
+    *count = 0;
+    while (*count < MAX_GAMES && !feof(file))
+    {
+        char game_type_str[20];
+        char difficulty[10];
+        char player_name[50];
+        int result;
 
-		// Read a line and parse it
-		if (fscanf(file, "%19[^,],%49[^,],%49[^,],%d\n",
-				   game_type_str,
-				   player1,
-				   player2,
-				   &result) == 4)
-		{
-			records[*count].game_type = (strcmp(game_type_str, "Single Player") == 0) ? GAME_TYPE_SINGLE : GAME_TYPE_MULTIPLAYER;
-			strcpy(records[*count].player_name, player1);
-			strcpy(records[*count].player2_name, player2);
-			records[*count].result = result;
-			(*count)++;
-		}
-		else
-		{
-			// Handle malformed lines
-			break;
-		}
-	}
+        // Read a line and parse it
+        if (fscanf(file, "%19[^,],%9[^,],%49[^,],%d\n",
+                   game_type_str,
+                   difficulty,
+                   player_name,
+                   &result) == 4)
+        {
+            if (strcmp(game_type_str, "Hangman") == 0)
+            {
+                if (strcmp(difficulty, "Easy") == 0)
+                    records[*count].game_type = 3; // Hangman Easy
+                else if (strcmp(difficulty, "Hard") == 0)
+                    records[*count].game_type = 4; // Hangman Hard
+                strcpy(records[*count].player_name, player_name);
+                strcpy(records[*count].player2_name, ""); // Not applicable
+                records[*count].result = result;
+            }
+            else
+            {
+                // Existing game types
+                // ...existing parsing code...
+            }
+            (*count)++;
+        }
+        else
+        {
+            // Handle malformed lines
+            break;
+        }
+    }
 
-	fclose(file);
+    fclose(file);
 }

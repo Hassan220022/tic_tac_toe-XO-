@@ -13,6 +13,9 @@ char xo[SIZE];
  */
 int main(void)
 {
+	intro();
+	menuscreen();
+
 	int mode = 0;
 	struct single_player sp_stats = {0, 0, 0, 0, ""};
 	struct multiplayer mp_stats = {0, 0, "", ""};
@@ -32,7 +35,7 @@ int main(void)
 
 	while (1)
 	{
-		display_home_page();
+		menuscreen(); // Replaced display_home_page() with menuscreen()
 		if (scanf("%d", &mode) != 1)
 		{
 			printf("Invalid input. Try again.\n");
@@ -79,7 +82,17 @@ int main(void)
 			display_leaderboard(sp_stats, mp_stats);
 			continue;
 		}
-		else if (mode == 5) // Exit
+		else if (mode == 5) // Hangman Easy
+		{
+			hangman_easy();
+			continue;
+		}
+		else if (mode == 6) // Hangman Hard
+		{
+			hangman_hard();
+			continue;
+		}
+		else if (mode == 7) // Exit
 		{
 			// Save game board, leaderboard, and game history before exiting
 			save_game_board(board, "game_board.csv");

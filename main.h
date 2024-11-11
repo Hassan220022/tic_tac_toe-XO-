@@ -74,7 +74,7 @@ int check_winner(void);
 void player_move(char *player_name);
 void computer_move_easy(void);
 void computer_move_hard(void);
-void display_home_page(void);
+void menuscreen(void);
 void display_leaderboard(struct single_player sp_stats,
 						 struct multiplayer mp_stats);
 void save_game_board(char board[3][3], const char *filename);
@@ -95,5 +95,12 @@ int check_winner_board(char board[SIZE]);
 /* Function prototypes for game history */
 void save_game_history(struct game_record record, const char *filename);
 void load_game_history(struct game_record *records, int *count, const char *filename);
+
+/* New function prototypes for menuscreen and intro */
+void intro(void);
+
+/* Function prototypes for Hangman */
+void hangman_easy(void);
+void hangman_hard(void);
 
 #endif /* MAIN_H */

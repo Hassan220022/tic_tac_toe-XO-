@@ -1,25 +1,6 @@
 #include "main.h"
 
 /**
- * display_home_page - Displays the game's home page with updated options
- */
-void display_home_page(void)
-{
-	printf("******************************************\n");
-	printf("*            Welcome to XO Game          *\n");
-	printf("******************************************\n");
-	printf("\n");
-	printf("Select an option:\n");
-	printf("1. Single Player (Easy)\n");
-	printf("2. Single Player (Hard)\n");
-	printf("3. Multiplayer\n");
-	printf("4. View Leaderboard\n");
-	printf("5. Exit\n");
-	printf("\n");
-	printf("Enter your choice: ");
-}
-
-/**
  * display_leaderboard - Displays the game leaderboard in a robust format
  * @sp_stats: Single player statistics
  * @mp_stats: Multiplayer statistics
@@ -88,4 +69,33 @@ void display_game_history(struct game_record *records, int count)
 	}
 
 	printf("===================================\n\n");
+}
+
+/**
+ * menuscreen - Displays the main menu with all options including Leaderboard
+ */
+void menuscreen(void) // the start menu
+{
+	printf("\n\nEnter the corresponding number to the program you want to run: ");
+	printf("\n\n \n  ------------------------------------\n |");
+	printf(" 1. Single Player (Easy)\t\t      |");
+	printf(" \n |------------------------------------|\n |");
+	printf(" 2. Single Player (Hard)\t\t      |");
+	printf(" \n |------------------------------------|\n |");
+	printf(" 3. Multiplayer\t\t      |");
+	printf(" \n |------------------------------------|\n |");
+	printf(" 4. View Leaderboard\t\t      |"); // Ensured View Leaderboard is present
+	printf(" \n |------------------------------------|\n |");
+	printf(" 5. Hangman (Easy)\t\t      |");
+	printf(" \n |------------------------------------|\n |");
+	printf(" 6. Hangman (Hard)\t\t      |");
+	printf(" \n |------------------------------------|\n |");
+	printf(" 7. Exit\t\t\t      |");
+	printf(" \n  ------------------------------------\n");
+}
+
+void intro(void)
+{
+	printf("MADE BY CEO and cofounder HAASSAN MIKAWI 20104451\n\t\t\t\tMazen Ibrahim Mohamed 20104387\n\n\n");
+	printf("MADE BY CEO and cofounder HAASSAN MIKAWI 20104451\n\t\t\t\tMazen Ibrahim Mohamed 20104387\n\n\n");
 }
