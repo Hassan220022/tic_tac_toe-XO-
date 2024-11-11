@@ -33,6 +33,9 @@ int main(void)
 	load_leaderboard(&sp_stats, &mp_stats, "leaderboard.csv");
 	load_game_history(history_records, &history_count, history_file);
 
+	// Add debug statement
+	printf("Program started successfully.\n");
+
 	while (1)
 	{
 		menuscreen(); // Replaced display_home_page() with menuscreen()

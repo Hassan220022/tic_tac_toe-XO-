@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pedantic
+CFLAGS = -Wall -Werror -Wextra -pedantic -v
 SRC = main.c game_init.c game_logic.c player_actions.c display.c save_load.c hangman.c
 OBJ = $(SRC:.c=.o)
 NAME = xo_game
@@ -21,6 +21,9 @@ fclean: clean
 	clear
 
 re: fclean all
+
+run: $(NAME)
+	./$(NAME)
 
 git: fclean
 	rm *.csv
