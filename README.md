@@ -4,6 +4,8 @@
 
 **XO Game** is a command-line-based Tic-Tac-Toe game developed in C. It offers both single-player and multiplayer modes, tracks player statistics through a leaderboard, and maintains a history of all games played. The single-player mode includes both easy and hard difficulty levels, with the hard mode leveraging the Minimax algorithm for optimal gameplay. Additionally, the game features a Hangman mode with varying difficulty levels to enhance the gaming experience.
 
+**This project was developed for the Applied Programming course in Term 3 at [Your University Name].**
+
 ## Features
 
 - **Single Player Mode**
