@@ -1,8 +1,9 @@
 #include "main.h"
 #include <stdio.h>
 #include <string.h>
-// Add the following include for tolower
 #include <ctype.h>
+
+/* ...existing includes and code... */
 
 /**
  * draw_hangman - Displays the hangman figure based on remaining attempts
@@ -45,7 +46,7 @@ void display_guessed_letters(char guessed_letters[], int count)
  */
 void hangman_easy(void)
 {
-	const char *word = "easy"; // Simple word for easy mode
+	const char *word = "easy"; /* Simple word for easy mode */
 	int word_length = strlen(word);
 	char guess[word_length + 1];
 	int attempts = 6;
@@ -54,7 +55,7 @@ void hangman_easy(void)
 	char guessed_letters[26];
 	int guessed_count = 0;
 
-	// Initialize guess with underscores
+	/* Initialize guess with underscores */
 	for (i = 0; i < word_length; i++)
 		guess[i] = '_';
 	guess[word_length] = '\0';
@@ -74,7 +75,7 @@ void hangman_easy(void)
 		{
 			printf("Invalid input. Try again.\n");
 			while (getchar() != '\n')
-				; // Clear input buffer
+				; /* Clear input buffer */
 			continue;
 		}
 
@@ -127,7 +128,7 @@ void hangman_easy(void)
 	else
 	{
 		printf("Game Over! The word was: %s\n", word);
-		draw_hangman(0); // Final hangman state
+		draw_hangman(0); /* Final hangman state */
 	}
 }
 
@@ -136,7 +137,7 @@ void hangman_easy(void)
  */
 void hangman_hard(void)
 {
-	const char *word = "hard"; // More complex word for hard mode
+	const char *word = "hard"; /* More complex word for hard mode */
 	int word_length = strlen(word);
 	char guess[word_length + 1];
 	int attempts = 6;
@@ -145,7 +146,7 @@ void hangman_hard(void)
 	char guessed_letters[26];
 	int guessed_count = 0;
 
-	// Initialize guess with underscores
+	/* Initialize guess with underscores */
 	for (i = 0; i < word_length; i++)
 		guess[i] = '_';
 	guess[word_length] = '\0';
@@ -165,14 +166,14 @@ void hangman_hard(void)
 		{
 			printf("Invalid input. Try again.\n");
 			while (getchar() != '\n')
-				; // Clear input buffer
+				; /* Clear input buffer */
 			continue;
 		}
 
-		// Convert to lowercase for consistency
+		/* Convert to lowercase for consistency */
 		letter = tolower(letter);
 
-		// Check if letter has already been guessed
+		/* Check if letter has already been guessed */
 		int already_guessed = 0;
 		for (i = 0; i < guessed_count; i++)
 		{
@@ -200,7 +201,6 @@ void hangman_hard(void)
 				found = 1;
 			}
 		}
-
 		if (!found)
 		{
 			printf("Wrong guess!\n");
@@ -210,16 +210,14 @@ void hangman_hard(void)
 		{
 			printf("Good guess!\n");
 		}
-
 		draw_hangman(attempts);
 		printf("\n");
 	}
-
 	if (correct == word_length)
 		printf("Congratulations! You guessed the word: %s\n", word);
 	else
 	{
 		printf("Game Over! The word was: %s\n", word);
-		draw_hangman(0); // Final hangman state
+		draw_hangman(0); /* Final hangman state */
 	}
 }

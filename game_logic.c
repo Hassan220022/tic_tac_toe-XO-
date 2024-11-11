@@ -25,12 +25,12 @@ int check_winner(void)
 			xo[win_combinations[i][1]] == xo[win_combinations[i][2]])
 		{
 			if (xo[win_combinations[i][0]] == 'X')
-				return 1;
+				return (1);
 			else if (xo[win_combinations[i][0]] == 'O')
-				return 2;
+				return (2);
 		}
 	}
 	if (available_counter == 0)
-		return 0; /* Draw */
-	return -1;	  /* Game continues */
+		return (0); /* Draw */
+	return (-1);	/* Game continues */
 }

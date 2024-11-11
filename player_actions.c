@@ -14,8 +14,8 @@ void player_move(char *player_name)
 	{
 		printf("Invalid input. Try again.\n");
 		while (getchar() != '\n')
-			; // Clear input buffer
-		player_move(player_name);
+			/* Clear input buffer */
+			player_move(player_name);
 		return;
 	}
 
@@ -31,8 +31,8 @@ void player_move(char *player_name)
 	{
 		printf("Invalid move. Try again.\n");
 		while (getchar() != '\n')
-			; // Clear input buffer
-		player_move(player_name);
+			/* Clear input buffer */
+			player_move(player_name);
 	}
 }
 
@@ -67,15 +67,15 @@ void computer_move_hard(void)
 	{
 		if (available[i])
 		{
-			// Make the move
+			/* Make the move */
 			xo[i] = 'O';
 			available[i] = 0;
 			available_counter--;
 
-			// Compute evaluation function for this move
+			/* Compute evaluation function for this move */
 			int score = minimax(xo, 0, 0, -1000, 1000);
 
-			// Undo the move
+			/* Undo the move */
 			xo[i] = '1' + i;
 			available[i] = 1;
 			available_counter++;
@@ -98,7 +98,7 @@ void computer_move_hard(void)
 	}
 	else
 	{
-		// No moves left, should be a draw
+		/* No moves left, should be a draw */
 	}
 }
 
@@ -115,12 +115,12 @@ void computer_move_hard(void)
 int minimax(char board[SIZE], int depth, int is_maximizing, int alpha, int beta)
 {
 	int winner = check_winner_board(board);
-	if (winner == 2) // Computer wins
-		return 10 - depth;
-	if (winner == 1) // Player wins
-		return depth - 10;
-	if (winner == 0) // Draw
-		return 0;
+	if (winner == 2) /* Computer wins */
+		return (10 - depth);
+	if (winner == 1) /* Player wins */
+		return (depth - 10);
+	if (winner == 0) /* Draw */
+		return (0);
 
 	if (is_maximizing)
 	{
@@ -142,7 +142,7 @@ int minimax(char board[SIZE], int depth, int is_maximizing, int alpha, int beta)
 					break;
 			}
 		}
-		return max_eval;
+		return (max_eval);
 	}
 	else
 	{
@@ -164,7 +164,7 @@ int minimax(char board[SIZE], int depth, int is_maximizing, int alpha, int beta)
 					break;
 			}
 		}
-		return min_eval;
+		return (min_eval);
 	}
 }
 
@@ -193,12 +193,12 @@ int check_winner_board(char board[SIZE])
 			board[win_combinations[i][1]] == board[win_combinations[i][2]])
 		{
 			if (board[win_combinations[i][0]] == 'X')
-				return 1;
+				return (1);
 			else if (board[win_combinations[i][0]] == 'O')
-				return 2;
+				return (2);
 		}
 	}
-	// Check for draw
+	/* Check for draw */
 	int available_moves = 0;
 	for (i = 0; i < SIZE; i++)
 	{
@@ -208,6 +208,6 @@ int check_winner_board(char board[SIZE])
 		}
 	}
 	if (available_moves == 0)
-		return 0; // Draw
-	return -1;	  // Game continues
+		return (0); /* Draw */
+	return (-1);	/* Game continues */
 }

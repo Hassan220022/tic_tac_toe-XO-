@@ -30,7 +30,7 @@ void display_leaderboard(struct single_player sp_stats,
 		   mp_stats.name2[0] ? mp_stats.name2 : "Player 2",
 		   mp_stats.player2_wins);
 
-	printf("\n===================================\n\n");
+	printf("===================================\n\n");
 }
 
 /**
@@ -74,22 +74,23 @@ void display_game_history(struct game_record *records, int count)
 /**
  * menuscreen - Displays the main menu with all options including Leaderboard
  */
-void menuscreen(void) // the start menu
+void menuscreen(void)
 {
 	printf("\n\nEnter the corresponding number to the program you want to run: ");
-	printf("\n\n \n  ------------------------------------\n |");
-	printf(" 1. Single Player (Easy)\t      |");
-	printf(" \n |------------------------------------|\n |");
-	printf(" 2. Single Player (Hard)\t      |");
-	printf(" \n |------------------------------------|\n |");
-	printf(" 3. Multiplayer\t\t      |");
-	printf(" \n |------------------------------------|\n |");
-	printf(" 4. View Leaderboard\t\t      |"); // Ensured View Leaderboard is present
-	printf(" \n |------------------------------------|\n |");
-	printf(" 5. Hangman (Easy)\t\t      |");
-	printf(" \n |------------------------------------|\n |");
-	printf(" 6. Hangman (Hard)\t\t      |");
-	printf(" \n |------------------------------------|\n |");
-	printf(" 7. Exit\t\t\t      |");
-	printf(" \n  ------------------------------------\n");
+	printf("\n\n");
+	printf("  ------------------------------------\n");
+	printf(" | 1. Single Player (Easy)\t      |\n");
+	printf(" |------------------------------------|\n");
+	printf(" | 2. Single Player (Hard)\t      |\n");
+	printf(" |------------------------------------|\n");
+	printf(" | 3. Multiplayer\t\t      |\n");
+	printf(" |------------------------------------|\n");
+	printf(" | 4. View Leaderboard\t\t      |\n");
+	printf(" |------------------------------------|\n");
+	printf(" | 5. Hangman (Easy)\t\t      |\n");
+	printf(" |------------------------------------|\n");
+	printf(" | 6. Hangman (Hard)\t\t      |\n");
+	printf(" |------------------------------------|\n");
+	printf(" | 7. Exit\t\t\t      |\n");
+	printf("  ------------------------------------\n");
 }

@@ -1,16 +1,18 @@
 #include "main.h"
+#include <stdio.h>
+#include <string.h>
 
 /**
- * save_game_board - Saves the game board to a CSV file
+ * save_game_board - Saves the current game board to a CSV file
  * @board: 3x3 game board array
  * @filename: Name of the file to save the board
  */
 void save_game_board(char board[3][3], const char *filename)
 {
 	FILE *file = fopen(filename, "w");
-	if (file == NULL)
+	if (!file)
 	{
-		printf("Error saving game board.\n");
+		printf("Failed to open %s for writing.\n", filename);
 		return;
 	}
 
@@ -24,25 +26,28 @@ void save_game_board(char board[3][3], const char *filename)
 
 /**
  * load_game_board - Loads the game board from a CSV file
- * @board: 3x3 game board array
+ * @board: 3x3 game board array to populate
  * @filename: Name of the file to load the board from
  */
 void load_game_board(char board[3][3], const char *filename)
 {
 	FILE *file = fopen(filename, "r");
-	if (file == NULL)
+	if (!file)
 	{
-		// Initialize board if file doesn't exist
-		char initial[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
-		for (int i = 0; i < 3; i++)
-			for (int j = 0; j < 3; j++)
-				board[i][j] = initial[i][j];
+		printf("No saved game board found. Starting a new game.\n");
+		initialize_game();
 		return;
 	}
 
 	for (int i = 0; i < 3; i++)
 	{
-		fscanf(file, " %c,%c,%c", &board[i][0], &board[i][1], &board[i][2]);
+		if (fscanf(file, " %c,%c,%c", &board[i][0], &board[i][1], &board[i][2]) != 3)
+		{
+			printf("Error reading game board. Starting a new game.\n");
+			initialize_game();
+			fclose(file);
+			return;
+		}
 	}
 
 	fclose(file);
@@ -59,13 +64,13 @@ void save_leaderboard(struct single_player sp_stats,
 					  const char *filename)
 {
 	FILE *file = fopen(filename, "w");
-	if (file == NULL)
+	if (!file)
 	{
 		printf("Error saving leaderboard.\n");
 		return;
 	}
 
-	// Save Single Player Stats
+	/* Save Single Player Stats */
 	fprintf(file, "Single Player,%s,%d,%d,%d,%d\n",
 			sp_stats.name,
 			sp_stats.wins_easy,
@@ -73,7 +78,7 @@ void save_leaderboard(struct single_player sp_stats,
 			sp_stats.computer_wins_easy,
 			sp_stats.computer_wins_hard);
 
-	// Save Multiplayer Stats
+	/* Save Multiplayer Stats */
 	fprintf(file, "Multiplayer,%s,%d,%s,%d\n",
 			mp_stats.name1,
 			mp_stats.player1_wins,
@@ -94,9 +99,9 @@ void load_leaderboard(struct single_player *sp_stats,
 					  const char *filename)
 {
 	FILE *file = fopen(filename, "r");
-	if (file == NULL)
+	if (!file)
 	{
-		// Initialize with default values if leaderboard doesn't exist
+		/* Initialize with default values if leaderboard doesn't exist */
 		strcpy(sp_stats->name, "Player");
 		sp_stats->wins_easy = 0;
 		sp_stats->wins_hard = 0;
@@ -111,7 +116,8 @@ void load_leaderboard(struct single_player *sp_stats,
 	}
 
 	char mode[20];
-	// Load Single Player Stats
+
+	/* Load Single Player Stats */
 	if (fscanf(file, "%[^,],%[^,],%d,%d,%d,%d\n",
 			   mode,
 			   sp_stats->name,
@@ -123,7 +129,7 @@ void load_leaderboard(struct single_player *sp_stats,
 		printf("Error loading single player stats.\n");
 	}
 
-	// Load Multiplayer Stats
+	/* Load Multiplayer Stats */
 	if (fscanf(file, "%[^,],%[^,],%d,%[^,],%d\n",
 			   mode,
 			   mp_stats->name1,
@@ -144,8 +150,8 @@ void load_leaderboard(struct single_player *sp_stats,
  */
 void save_game_history(struct game_record record, const char *filename)
 {
-	FILE *file = fopen(filename, "a"); // Append mode
-	if (file == NULL)
+	FILE *file = fopen(filename, "a"); /* Append mode */
+	if (!file)
 	{
 		printf("Error saving game history.\n");
 		return;
@@ -153,29 +159,29 @@ void save_game_history(struct game_record record, const char *filename)
 
 	if (record.game_type == GAME_TYPE_SINGLE)
 	{
-		// Single Player: Game Type, Player Name, Computer, Result
+		/* Single Player: Game Type, Player Name, Computer, Result */
 		fprintf(file, "Single Player,%s,,%d\n",
 				record.player_name,
 				record.result);
 	}
 	else if (record.game_type == GAME_TYPE_MULTIPLAYER)
 	{
-		// Multiplayer: Game Type, Player 1, Player 2, Result
+		/* Multiplayer: Game Type, Player 1, Player 2, Result */
 		fprintf(file, "Multiplayer,%s,%s,%d\n",
 				record.player_name,
 				record.player2_name,
 				record.result);
 	}
-	else if (record.game_type == 3) // Hangman Easy
+	else if (record.game_type == 3) /* Hangman Easy */
 	{
-		// Hangman Easy: Game Type, Player Name, Difficulty, Result
+		/* Hangman Easy: Game Type, Player Name, Difficulty, Result */
 		fprintf(file, "Hangman,Easy,%s,%d\n",
 				record.player_name,
 				record.result);
 	}
-	else if (record.game_type == 4) // Hangman Hard
+	else if (record.game_type == 4) /* Hangman Hard */
 	{
-		// Hangman Hard: Game Type, Player Name, Difficulty, Result
+		/* Hangman Hard: Game Type, Player Name, Difficulty, Result */
 		fprintf(file, "Hangman,Hard,%s,%d\n",
 				record.player_name,
 				record.result);
@@ -193,9 +199,9 @@ void save_game_history(struct game_record record, const char *filename)
 void load_game_history(struct game_record *records, int *count, const char *filename)
 {
 	FILE *file = fopen(filename, "r");
-	if (file == NULL)
+	if (!file)
 	{
-		// No game history exists
+		/* No game history exists */
 		*count = 0;
 		return;
 	}
@@ -208,7 +214,7 @@ void load_game_history(struct game_record *records, int *count, const char *file
 		char player_name[50];
 		int result;
 
-		// Read a line and parse it
+		/* Read a line and parse it */
 		if (fscanf(file, "%19[^,],%9[^,],%49[^,],%d\n",
 				   game_type_str,
 				   difficulty,
@@ -218,23 +224,20 @@ void load_game_history(struct game_record *records, int *count, const char *file
 			if (strcmp(game_type_str, "Hangman") == 0)
 			{
 				if (strcmp(difficulty, "Easy") == 0)
-					records[*count].game_type = 3; // Hangman Easy
+					records[*count].game_type = 3; /* Hangman Easy */
 				else if (strcmp(difficulty, "Hard") == 0)
-					records[*count].game_type = 4; // Hangman Hard
+					records[*count].game_type = 4; /* Hangman Hard */
 				strcpy(records[*count].player_name, player_name);
-				strcpy(records[*count].player2_name, ""); // Not applicable
+				strcpy(records[*count].player2_name, ""); /* Not applicable */
 				records[*count].result = result;
 			}
 			else
-			{
-				// Existing game types
-				// ...existing parsing code...
+			{ /* Existing game types */ /* ...existing parsing code... */
 			}
 			(*count)++;
 		}
 		else
-		{
-			// Handle malformed lines
+		{ /* Handle malformed lines */
 			break;
 		}
 	}

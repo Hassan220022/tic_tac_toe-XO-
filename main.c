@@ -1,10 +1,10 @@
 #include "main.h"
 
-/* Define global variables */
-int player_turn;
-int available[SIZE];
-int available_counter;
-char xo[SIZE];
+// Define global variables
+int player_turn = 1; // 1 for Player 1's turn, 0 for Player 2/Computer's turn
+int available[SIZE] = {1, 1, 1, 1, 1, 1, 1, 1, 1}; // 1 means the position is available
+int available_counter = SIZE; // Number of available moves
+char xo[SIZE] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'}; // Initial game board
 
 /**
  * main - Entry point of the program
@@ -22,15 +22,15 @@ int main(void)
 	struct game_record history_records[MAX_GAMES];
 	int history_count = 0;
 
-	// Seed the random number generator once
+	/* Seed the random number generator once */
 	srand(time(NULL));
 
-	// Load game board, leaderboard, and game history
+	/* Load game board, leaderboard, and game history */
 	load_game_board(board, "game_board.csv");
 	load_leaderboard(&sp_stats, &mp_stats, "leaderboard.csv");
 	load_game_history(history_records, &history_count, history_file);
 
-	// Add debug statement
+	/* Add debug statement */
 	printf("Program started successfully.\n");
 
 	while (1)
@@ -48,19 +48,19 @@ int main(void)
 		{
 			if (mode == 1)
 			{
-				// Single Player Easy
-				// No additional setup needed
+				/* Single Player Easy */
+				/* No additional setup needed */
 			}
 			else
 			{
-				// Single Player Hard
-				// No additional setup needed
+				/* Single Player Hard */
+				/* No additional setup needed */
 			}
 
 			printf("Enter your name: ");
 			scanf("%s", sp_stats.name);
 
-			// Set current game record
+			/* Set current game record */
 			current_game.game_type = GAME_TYPE_SINGLE;
 			strcpy(current_game.player_name, sp_stats.name);
 			strcpy(current_game.player2_name, "Computer");
@@ -72,7 +72,7 @@ int main(void)
 			printf("Enter name of Player 2: ");
 			scanf("%s", mp_stats.name2);
 
-			// Set current game record
+			/* Set current game record */
 			current_game.game_type = GAME_TYPE_MULTIPLAYER;
 			strcpy(current_game.player_name, mp_stats.name1);
 			strcpy(current_game.player2_name, mp_stats.name2);
@@ -94,10 +94,10 @@ int main(void)
 		}
 		else if (mode == 7) // Exit
 		{
-			// Save game board, leaderboard, and game history before exiting
+			/* Save game board, leaderboard, and game history before exiting */
 			save_game_board(board, "game_board.csv");
 			save_leaderboard(sp_stats, mp_stats, "leaderboard.csv");
-			// No new games to save
+			/* No new games to save */
 			printf("Thank you for playing!\n");
 			break;
 		}
@@ -187,17 +187,17 @@ int main(void)
 			current_game.result = 0;
 		}
 
-		// Save the current game to history
+		/* Save the current game to history */
 		save_game_history(current_game, history_file);
-		// Optionally, add to history_records array
+		/* Optionally, add to history_records array */
 		if (history_count < MAX_GAMES)
 		{
 			history_records[history_count++] = current_game;
 		}
 
-		// Save game board and leaderboard
+		/* Save game board and leaderboard */
 		save_game_board(board, "game_board.csv");
 		save_leaderboard(sp_stats, mp_stats, "leaderboard.csv");
 	}
-	return 0;
+	return (0);
 }
