@@ -27,5 +27,6 @@ git: fclean
 	git add .
 	git commit -m "update"
 	git push
+	clear
 
 .PHONY: all clean fclean re
