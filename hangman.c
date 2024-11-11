@@ -1,4 +1,8 @@
 #include "main.h"
+#include <stdio.h>
+#include <string.h>
+// Add the following include for tolower
+#include <ctype.h>
 
 /**
  * draw_hangman - Displays the hangman figure based on remaining attempts
